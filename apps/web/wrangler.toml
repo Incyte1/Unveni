@@ -1,0 +1,9 @@
+"$schema" = "./node_modules/wrangler/config-schema.json"
+name = "unveni-web"
+pages_build_output_dir = "./dist"
+compatibility_date = "2026-04-02"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+APP_NAME = "Unveni"
+
