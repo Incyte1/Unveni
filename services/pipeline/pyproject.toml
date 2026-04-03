@@ -1,0 +1,11 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "unveni-pipeline"
+version = "0.1.0"
+description = "Ingestion, feature, training, and backtesting scaffold for Unveni."
+requires-python = ">=3.11"
+dependencies = []
+
