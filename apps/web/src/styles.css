@@ -33,7 +33,8 @@ body {
 }
 
 button,
-input {
+input,
+select {
   font: inherit;
 }
 
@@ -188,6 +189,73 @@ button {
   box-shadow: 0 0 0 3px rgba(13, 108, 90, 0.16);
 }
 
+button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.panelForm {
+  display: grid;
+  gap: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr 0.8fr;
+  gap: 0.8rem;
+}
+
+.compactFormGrid {
+  grid-template-columns: 0.85fr 1.15fr;
+}
+
+.formFieldWide {
+  grid-column: span 1;
+}
+
+.formGrid label {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.actionRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.primaryButton,
+.secondaryButton,
+.dangerButton {
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  padding: 0.68rem 1rem;
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.primaryButton {
+  color: white;
+  background: linear-gradient(135deg, #0d6c5a, #125d72);
+  border-color: transparent;
+}
+
+.secondaryButton {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.dangerButton {
+  color: var(--danger);
+  background: rgba(161, 68, 50, 0.08);
+  border-color: rgba(161, 68, 50, 0.18);
+}
+
+.primaryButton:hover,
+.secondaryButton:hover,
+.dangerButton:hover {
+  transform: translateY(-1px);
+}
+
 .filterList {
   display: flex;
   flex-wrap: wrap;
@@ -309,6 +377,64 @@ button {
   line-height: 1.6;
 }
 
+.chartPanel {
+  margin-bottom: 1rem;
+}
+
+.chartSurface {
+  position: relative;
+  min-height: 360px;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.72)),
+    radial-gradient(circle at top right, rgba(13, 108, 90, 0.12), transparent 24%);
+}
+
+.chartProviderPlaceholder {
+  min-height: 360px;
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+  padding: 1.2rem;
+  background: linear-gradient(180deg, rgba(250, 247, 242, 0.94), rgba(250, 247, 242, 0.98));
+}
+
+.chartProviderHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: start;
+}
+
+.chartProviderPlaceholder strong {
+  font-size: 1rem;
+}
+
+.chartProviderCopy,
+.infoCard p,
+.warningItem p,
+.eventItem p {
+  margin: 0;
+  color: var(--text-soft);
+  line-height: 1.6;
+}
+
+.chartProviderLine {
+  margin-top: 0;
+}
+
+.chartCapabilityList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.chartNoteList {
+  padding-left: 1.2rem;
+}
+
 .detailGrid,
 .greekGrid {
   display: grid;
@@ -373,6 +499,14 @@ button {
   margin-top: 1rem;
 }
 
+.overviewBenchmarks,
+.explanationList {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
 .metricCard strong {
   display: block;
   margin-top: 0.45rem;
@@ -412,9 +546,312 @@ button {
   gap: 0.7rem;
 }
 
+.stateBlock,
+.infoCard,
+.warningItem,
+.eventItem {
+  padding: 0.95rem;
+  border-radius: 22px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.54);
+}
+
+.stateBlock strong,
+.infoCard strong,
+.warningItem strong,
+.eventItem strong {
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.stateBlock p,
+.infoCard p,
+.warningItem p,
+.eventItem p {
+  margin: 0;
+}
+
+.stateBlock.isError {
+  border-color: rgba(161, 68, 50, 0.24);
+  background: rgba(255, 246, 243, 0.92);
+}
+
+.warningList,
+.eventList {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.stackList {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.focusPanel {
+  background:
+    linear-gradient(135deg, rgba(13, 108, 90, 0.08), rgba(18, 93, 114, 0.08)),
+    var(--surface);
+}
+
+.focusHero {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: start;
+  padding: 1rem;
+  border-radius: 24px;
+  border: 1px solid rgba(13, 108, 90, 0.18);
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.focusHero strong {
+  display: block;
+  font-size: 1.15rem;
+  margin-bottom: 0.4rem;
+}
+
+.focusHero p {
+  margin: 0;
+  color: var(--text-soft);
+  line-height: 1.6;
+}
+
+.focusSteps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.focusMetrics {
+  margin-top: 1rem;
+}
+
+.signalBoardMeta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 0.9rem;
+  color: var(--text-soft);
+}
+
+.signalCardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.signalCardButton {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  text-align: left;
+}
+
+.signalCardButton:focus-visible {
+  outline: none;
+}
+
+.signalCardButton.isSelected .signalCard,
+.signalCardButton:hover .signalCard,
+.signalCardButton:focus-visible .signalCard {
+  transform: translateY(-1px);
+  border-color: rgba(13, 108, 90, 0.32);
+  box-shadow: 0 18px 36px rgba(17, 29, 35, 0.08);
+}
+
+.signalCard {
+  height: 100%;
+  display: grid;
+  gap: 0.9rem;
+  padding: 1rem;
+  border-radius: 24px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.58);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.signalCardHeader,
+.signalHeaderMeta {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  align-items: start;
+}
+
+.signalStatRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.signalLevelGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.signalLevelGrid.isInspector {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: 1rem;
+}
+
+.signalLevelGrid > div {
+  padding: 0.75rem;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.signalReasonList {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.signalReasonList p,
+.signalInlineWarning p {
+  margin: 0;
+  color: var(--text-soft);
+  line-height: 1.55;
+}
+
+.signalInlineWarning {
+  display: flex;
+  gap: 0.7rem;
+  align-items: start;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(18, 32, 38, 0.08);
+}
+
+.actionBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.32rem 0.72rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+
+.actionBadge.isBUY {
+  color: var(--positive);
+  background: rgba(13, 108, 90, 0.12);
+  border-color: rgba(13, 108, 90, 0.16);
+}
+
+.actionBadge.isHOLD {
+  color: #5a6470;
+  background: rgba(90, 100, 112, 0.1);
+  border-color: rgba(90, 100, 112, 0.16);
+}
+
+.actionBadge.isSELL,
+.actionBadge.isEXIT {
+  color: var(--danger);
+  background: rgba(161, 68, 50, 0.12);
+  border-color: rgba(161, 68, 50, 0.18);
+}
+
+.actionBadge.isREDUCE {
+  color: #8a5a12;
+  background: rgba(212, 141, 30, 0.14);
+  border-color: rgba(212, 141, 30, 0.2);
+}
+
+.actionBadge.isNO_TRADE {
+  color: #33424a;
+  background: rgba(51, 66, 74, 0.1);
+  border-color: rgba(51, 66, 74, 0.16);
+}
+
+.watchlistCard,
+.positionCard,
+.orderCard,
+.alertCard {
+  padding: 0.95rem;
+  border-radius: 22px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.54);
+}
+
+.watchlistCardTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.alertMeta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.45rem;
+}
+
+.watchlistNotes {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.positionStats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+  color: var(--text-soft);
+}
+
+.warningItem,
+.eventItem {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.9rem;
+  align-items: start;
+}
+
+.warningTag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.28rem 0.6rem;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(18, 32, 38, 0.08);
+}
+
+.warningTag.isinfo {
+  color: #1b5870;
+  background: rgba(27, 88, 112, 0.12);
+}
+
+.warningTag.iscaution,
+.warningTag.ismedium {
+  color: #8a5a12;
+  background: rgba(212, 141, 30, 0.14);
+}
+
+.warningTag.isrisk,
+.warningTag.ishigh {
+  color: var(--danger);
+  background: rgba(161, 68, 50, 0.12);
+}
+
+.warningTag.islow {
+  color: var(--accent);
+  background: rgba(13, 108, 90, 0.12);
+}
+
 .scorePill {
   padding-inline: 0.85rem;
   font-size: 1rem;
+}
+
+.scorecardCard {
+  gap: 0.8rem;
 }
 
 .scenarioTable {
@@ -492,13 +929,37 @@ button {
 
   .chartGrid,
   .metricCards,
+  .focusSteps,
+  .signalCardGrid,
+  .overviewBenchmarks,
+  .explanationList,
   .detailGrid,
-  .greekGrid {
+  .greekGrid,
+  .formGrid,
+  .compactFormGrid,
+  .positionStats,
+  .signalLevelGrid,
+  .signalLevelGrid.isInspector {
     grid-template-columns: minmax(0, 1fr);
   }
 
   .scenarioTable {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     font-size: 0.9rem;
+  }
+
+  .chartSurface,
+  .chartProviderPlaceholder {
+    min-height: 320px;
+  }
+
+  .chartProviderHeader,
+  .focusHero,
+  .warningItem,
+  .eventItem,
+  .watchlistCardTop,
+  .signalCardHeader,
+  .signalHeaderMeta {
+    flex-direction: column;
   }
 }

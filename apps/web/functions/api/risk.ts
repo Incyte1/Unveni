@@ -1,6 +1,5 @@
-import { risk } from "../_data";
-import { proxyOrFallback } from "../_utils";
+import { buildRiskFallback } from "../_data";
+import { proxyOrFallback, type PagesFunctionContext } from "../_utils";
 
-export const onRequestGet = async (context: any) =>
-  proxyOrFallback(context, "/risk", risk);
-
+export const onRequestGet = async (context: PagesFunctionContext) =>
+  proxyOrFallback(context, "/risk", buildRiskFallback());

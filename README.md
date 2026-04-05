@@ -14,6 +14,29 @@ This repository is intentionally a foundation, not a live trading system. It shi
 
 ## Local development
 
+### TradingView Advanced Charts setup
+
+This repo is prepared for TradingView's private Advanced Charts library, but the licensed assets are not stored here.
+
+1. Request access to the official TradingView Advanced Charts or Trading Platform repository.
+2. Accept the GitHub invitation from TradingView.
+3. Copy the official `charting_library/` folder into `apps/web/public/charting_library/`.
+4. Copy the official `datafeeds/` folder into `apps/web/public/datafeeds/`.
+5. Create `apps/web/.env.local` and set `VITE_ENABLE_TRADINGVIEW=true`.
+6. Do not commit those proprietary files into this public repository.
+
+Once copied, the React app will load:
+
+- `/charting_library/charting_library.standalone.js`
+- `/datafeeds/udf/dist/bundle.js`
+
+The initial widget configuration follows TradingView's quickstart pattern:
+
+- `library_path: "/charting_library/"`
+- `datafeed: new Datafeeds.UDFCompatibleDatafeed("https://demo-feed-data.tradingview.com")`
+- `symbol: selected trade symbol`
+- `interval: "1D"`
+
 ### Web
 
 ```bash
@@ -21,7 +44,7 @@ npm install
 npm run dev:web
 ```
 
-The dashboard runs from local mock data by default. To have Cloudflare Pages Functions proxy to the API during `wrangler pages dev`, copy `apps/web/.dev.vars.example` to `.dev.vars` and set `API_ORIGIN`.
+The dashboard runs from local mock data by default. The TradingView chart panel stays in setup mode until the official library files are copied into `apps/web/public/charting_library/` and `apps/web/public/datafeeds/`, and `VITE_ENABLE_TRADINGVIEW=true` is set in `apps/web/.env.local`. To have Cloudflare Pages Functions proxy to the API during `wrangler pages dev`, copy `apps/web/.dev.vars.example` to `.dev.vars` and set `API_ORIGIN`.
 
 ### API
 
@@ -53,4 +76,3 @@ python -m pipeline plan
 3. Move the React app from static mocks to live fetches against `/api/opportunities`, `/api/trade/:id`, and `/api/risk`.
 4. Add entitlement-aware display rules and audit logging before any real-time options data is exposed.
 5. Add broker integration only after paper-trading controls, disclosures, and kill switches are in place.
-

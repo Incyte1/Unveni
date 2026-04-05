@@ -1,9 +1,5 @@
-import { opportunities } from "../_data";
-import { proxyOrFallback } from "../_utils";
+import { buildOpportunitiesFallback } from "../_data";
+import { proxyOrFallback, type PagesFunctionContext } from "../_utils";
 
-export const onRequestGet = async (context: any) =>
-  proxyOrFallback(context, "/opportunities", {
-    asOf: new Date().toISOString(),
-    items: opportunities
-  });
-
+export const onRequestGet = async (context: PagesFunctionContext) =>
+  proxyOrFallback(context, "/opportunities", buildOpportunitiesFallback());

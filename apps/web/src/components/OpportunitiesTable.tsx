@@ -1,25 +1,29 @@
-import type { Opportunity } from "../data/mock";
+import type { OpportunityRecord } from "../lib/contracts";
 
 interface OpportunitiesTableProps {
-  items: Opportunity[];
+  items: OpportunityRecord[];
   selectedId: string;
   onSelect: (id: string) => void;
+  isLoading: boolean;
+  error: string | null;
 }
 
 export function OpportunitiesTable({
   items,
   selectedId,
-  onSelect
+  onSelect,
+  isLoading,
+  error
 }: OpportunitiesTableProps) {
   return (
     <section className="panel reveal">
       <div className="sectionHeader">
         <div>
-          <p className="eyebrow">Ranked candidates</p>
-          <h2>Opportunities</h2>
+          <p className="eyebrow">Supporting feed</p>
+          <h2>Opportunity context</h2>
         </div>
         <p className="sectionMeta">
-          Learning-to-rank output after liquidity, slippage, and ES gates.
+          Legacy research context stays on the dashboard, but the intraday signal engine no longer depends on this feed.
         </p>
       </div>
       <div className="tableWrap">
@@ -35,7 +39,27 @@ export function OpportunitiesTable({
             </tr>
           </thead>
           <tbody>
-            {items.length === 0 ? (
+            {isLoading ? (
+              <tr className="isEmpty">
+                <td colSpan={6}>
+                  <div className="tradeCell">
+                    <strong>Loading ranked opportunities...</strong>
+                    <span>The dashboard is waiting for the opportunities feed.</span>
+                  </div>
+                </td>
+              </tr>
+            ) : null}
+            {!isLoading && error ? (
+              <tr className="isEmpty">
+                <td colSpan={6}>
+                  <div className="tradeCell">
+                    <strong>Opportunity feed unavailable.</strong>
+                    <span>{error}</span>
+                  </div>
+                </td>
+              </tr>
+            ) : null}
+            {!isLoading && !error && items.length === 0 ? (
               <tr className="isEmpty">
                 <td colSpan={6}>
                   <div className="tradeCell">
@@ -45,63 +69,65 @@ export function OpportunitiesTable({
                 </td>
               </tr>
             ) : null}
-            {items.map((item, index) => {
-              const active = item.id === selectedId;
+            {!isLoading && !error
+              ? items.map((item, index) => {
+                  const active = item.id === selectedId;
 
-              return (
-                <tr
-                  key={item.id}
-                  className={active ? "isActive" : undefined}
-                  tabIndex={0}
-                  onClick={() => onSelect(item.id)}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter" || event.key === " ") {
-                      event.preventDefault();
-                      onSelect(item.id);
-                    }
-                  }}
-                  style={{ animationDelay: `${index * 55}ms` }}
-                >
-                  <td>
-                    <div className="tradeCell">
-                      <strong>
-                        {item.symbol} {item.structure}
-                      </strong>
-                      <span>{item.thesis}</span>
-                      <div className="tagRow">
-                        {item.catalysts.slice(0, 2).map((catalyst) => (
-                          <span
-                            key={catalyst}
-                            className="tag"
-                          >
-                            {catalyst}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <span className="mono score">{item.score}</span>
-                  </td>
-                  <td>
-                    <span className="mono positive">
-                      {item.expectedReturn.toFixed(1)}%
-                    </span>
-                  </td>
-                  <td>
-                    <span className="mono negative">
-                      {item.expectedShortfall.toFixed(1)}%
-                    </span>
-                  </td>
-                  <td>
-                    <span className="mono">{item.winRate}%</span>
-                  </td>
-                  <td>
-                    <span className="mono">{item.spreadBps} bps</span>
-                  </td>
-                </tr>
-              );
-            })}
+                  return (
+                    <tr
+                      key={item.id}
+                      className={active ? "isActive" : undefined}
+                      tabIndex={0}
+                      onClick={() => onSelect(item.id)}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault();
+                          onSelect(item.id);
+                        }
+                      }}
+                      style={{ animationDelay: `${index * 55}ms` }}
+                    >
+                      <td>
+                        <div className="tradeCell">
+                          <strong>
+                            {item.symbol} {item.structure}
+                          </strong>
+                          <span>{item.thesis}</span>
+                          <div className="tagRow">
+                            {item.catalysts.slice(0, 2).map((catalyst) => (
+                              <span
+                                key={catalyst}
+                                className="tag"
+                              >
+                                {catalyst}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span className="mono score">{item.score}</span>
+                      </td>
+                      <td>
+                        <span className="mono positive">
+                          {item.expected_return.toFixed(1)}%
+                        </span>
+                      </td>
+                      <td>
+                        <span className="mono negative">
+                          {item.expected_shortfall.toFixed(1)}%
+                        </span>
+                      </td>
+                      <td>
+                        <span className="mono">{item.win_rate}%</span>
+                      </td>
+                      <td>
+                        <span className="mono">{item.spread_bps} bps</span>
+                      </td>
+                    </tr>
+                  );
+                })
+              : null}
           </tbody>
         </table>
       </div>
